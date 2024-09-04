@@ -1,0 +1,100 @@
+// Rock-Paper-Scissors game by Aiden Sakat
+//
+#include <time.h>
+#include <iostream>
+#include <string>
+void Greet(std::string name);
+int PlayGame();
+int OpponentChoice();
+int WinOrLose(std::string PC, std::string OC);
+
+std::string choice[3] = {"Rock", "Paper", "Scissors"};
+
+int main()
+{
+	char play;
+	std::string name;
+	std::cout << "Welcome user, What is your name?: ";
+	std::cin >> name;
+	Greet(name);
+		int num1 = PlayGame();
+		int num2 = OpponentChoice();
+		std::string OC = choice[num2 - 1];
+		std::string PC = choice[num1 - 1];
+		std::cout << "You Chose: " << PC << "!" << std::endl;
+		std::cout << "Opponent Chose: " << OC << "!" << std::endl;
+		int WOR = WinOrLose(PC, OC);
+		if (WOR == 0) {
+			std::cout << "You Tied! GG!";
+		}
+		if (WOR == 1) {
+			std::cout << "You Won! GG!";
+		}
+		if (WOR == -1) {
+			std::cout << "You Lost! GG!";
+		}
+}
+
+
+
+void Greet(std::string name) {
+	std::cout << "Welcome to Rock, Paper, Scissors!" << std::endl;
+	std::cout << "===================" << std::endl;
+	std::cout << name << std::endl;
+}
+
+int PlayGame()
+{
+	int player_choice;
+	std::cout << "===================" << std::endl;
+	std::cout << "Choose Rock(1), Paper(2), or Scissors(3)" << std::endl;
+	std::cout << "===================" << std::endl;
+	std::cin >> player_choice;
+	while (player_choice) {
+		if (player_choice <= 3) {
+			return player_choice;
+		}
+		else {
+			std::cout << "Please Enter a number from 1-3." << std::endl;
+			std::cout << "===================" << std::endl;
+			std::cout << "Choose Rock(1), Paper(2), or Scissors(3)" << std::endl;
+			std::cout << "===================" << std::endl;
+			std::cin >> player_choice;
+		}
+	}
+}
+
+int OpponentChoice()
+{
+	srand(time(NULL));
+	int opponent_choice = rand() % (4 - 1) + 1;
+	return opponent_choice;
+}
+
+int WinOrLose(std::string PC, std::string OC)
+{
+	std::string playerChoice = PC;
+	std::string opponentChoice = OC;
+
+
+	if (playerChoice == "Paper" && opponentChoice == "Rock") {
+		return 1;
+	}
+	if (playerChoice == "Rock" && opponentChoice == "Scissors") {
+		return 1;
+	}
+	if (playerChoice == "Scissors" && opponentChoice == "Paper") {
+		return 1;
+	}
+	if (playerChoice == "Rock" && opponentChoice == "Paper") {
+		return -1;
+	}
+	if (playerChoice == "Scissors" && opponentChoice == "Rock") {
+		return -1;
+	}
+	if (playerChoice == "Paper" && opponentChoice == "Scissors") {
+		return -1;
+	}
+	return 0;
+}
+
